@@ -1,13 +1,14 @@
-import { json } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
 import {
   Form,
-  Link,
   Links,
   Meta,
+  NavLink,
   Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useNavigation,
 } from '@remix-run/react';
 import type { LinksFunction } from '@remix-run/node';
 import { createEmptyContact, getContacts } from './data';
@@ -37,11 +38,12 @@ export const loader = async () => {
 
 export const action = async () => {
   const contact = await createEmptyContact();
-  return json({ contact });
+  return redirect(`/contacts/${contact.id}/edit`);
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { contacts } = useLoaderData<typeof loader>();
+  const navigation = useNavigation();
   return (
     <html lang="en">
       <head>
@@ -74,7 +76,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <ul>
                 {contacts.map(contact => (
                   <li key={contact.id}>
-                    <Link to={`contacts/${contact.id}`}>
+                    <NavLink
+                      className={({ isActive, isPending }) =>
+                        isActive ? 'active' : isPending ? 'pending' : ''
+                      }
+                      to={`contacts/${contact.id}`}
+                    >
                       {contact.first || contact.last ? (
                         <>
                           {contact.first} {contact.last}
@@ -83,7 +90,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                         <i>No Name</i>
                       )}{' '}
                       {contact.favorite ? <span>★</span> : null}
-                    </Link>
+                    </NavLink>
                   </li>
                 ))}
               </ul>
@@ -94,7 +101,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
             )}
           </nav>
         </div>
-        <div id="detail">
+        <div
+          className={navigation.state === 'loading' ? 'loading' : ''}
+          id="detail"
+        >
           <Outlet />
         </div>
         <ScrollRestoration />
@@ -105,5 +115,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const navigation = useNavigation();
+  return (
+    <div
+      className={navigation.state === 'loading' ? 'loading' : ''}
+      id="detail"
+    >
+      {' '}
+      <Outlet />
+    </div>
+  );
 }

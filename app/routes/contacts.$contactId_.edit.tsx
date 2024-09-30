@@ -36,6 +36,7 @@ export default function EditContact() {
           name="first"
           type="text"
           placeholder="First"
+          className="text-black"
         />
         <input
           aria-label="Last name"
@@ -43,6 +44,7 @@ export default function EditContact() {
           name="last"
           placeholder="Last"
           type="text"
+          className="text-black"
         />
       </p>
       <label>
@@ -52,6 +54,7 @@ export default function EditContact() {
           name="twitter"
           placeholder="@jack"
           type="text"
+          className="text-black"
         />
       </label>
       <label>
@@ -62,15 +65,27 @@ export default function EditContact() {
           name="avatar"
           placeholder="https://example.com/avatar.jpg"
           type="text"
+          className="text-black"
         />
       </label>
       <label>
         <span>Notes</span>
-        <textarea defaultValue={contact.notes} name="notes" rows={6} />
+        <textarea
+          defaultValue={contact.notes}
+          name="notes"
+          rows={6}
+          className="text-black"
+        />
       </label>
       <p>
-        <button type="submit">Save</button>
-        <button onClick={() => navigate(-1)} type="button">
+        <button type="submit" className="cursor-pointer">
+          Save
+        </button>
+        <button
+          onClick={() => navigate(-1)}
+          type="button"
+          className=" cursor-pointer bg-slate-900 "
+        >
           Cancel
         </button>
       </p>

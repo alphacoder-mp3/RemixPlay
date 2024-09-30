@@ -104,6 +104,12 @@ export async function deleteContact(id: string) {
     twitter: '@shrutikapoor08',
   },
   {
+    avatar: 'https://avatars.githubusercontent.com/u/180742078?v=4',
+    first: 'Avneet',
+    last: 'Kaur',
+    twitter: '@AvneetKaur259',
+  },
+  {
     avatar:
       'https://sessionize.com/image/1940-400o400o2-Enh9dnYmrLYhJSTTPSw3MH.jpg',
     first: 'Glenn',

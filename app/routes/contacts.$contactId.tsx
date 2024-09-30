@@ -99,6 +99,7 @@ const Favorite: FunctionComponent<{
         aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
         name="favorite"
         value={favorite ? 'false' : 'true'}
+        className="bg-gray-800"
       >
         {favorite ? '★' : '☆'}
       </button>

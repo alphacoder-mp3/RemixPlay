@@ -135,7 +135,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
           }
           id="detail"
         >
-          <Outlet />
+          {/* <Outlet /> */}
+          {children}
         </div>
         <ScrollRestoration />
         <Scripts />
@@ -145,17 +146,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const navigation = useNavigation();
-  const searching =
-    navigation.location &&
-    new URLSearchParams(navigation.location.search).has('q');
   return (
-    <div
-      className={navigation.state === 'loading' && !searching ? 'loading' : ''}
-      id="detail"
-    >
-      {' '}
-      <Outlet />
-    </div>
+    <html lang="en">
+      <body>
+        <Outlet />
+      </body>
+    </html>
   );
 }
